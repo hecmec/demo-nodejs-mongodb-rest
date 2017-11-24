@@ -1,11 +1,21 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var schema = mongoose.Schema({value: String});
-var Values = mongoose.model('values', schema);
+const schema = mongoose.Schema({value: String});
+const Values = mongoose.model('values', schema);
 
 module.exports = {
+    // connectDB : function() {
+    //     mongoose.connect(process.env.MONGODB_ADDON_URI);
+    // },
+
     connectDB : function() {
-        mongoose.connect(process.env.MONGODB_ADDON_URI);
+        //var uri = 'process.env.MONGODB_ADDON_URI';
+        let uri = 'mongodb://27017/cleverTest';
+        let promise = mongoose.connect(uri, {
+            useMongoClient: true,
+            /* other options */
+          });
+        return promise;
     },
 
     getVal : function(res) {
